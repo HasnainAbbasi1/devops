@@ -31,3 +31,9 @@ networks:
 
 volumes:
   mongodb_data:
+
+  services:
+  jenkins-app:
+    container_name: jenkins-webapp
+  jenkins-db:
+    container_name: jenkins-db
