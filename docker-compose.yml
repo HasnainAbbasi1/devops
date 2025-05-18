@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  webapp:
+    build: .
+    container_name: taskmanager-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - MONGODB_URI=mongodb://db:27017/taskapp
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  db:
+    image: mongo:6.0
+    container_name: taskmanager-db
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+
+volumes:
+  mongodb_data:
